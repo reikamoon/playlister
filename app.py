@@ -28,10 +28,22 @@ def playlists_new():
     """Create a new playlist."""
     return render_template('playlists_new.html')
 
+#Post Route
 @app.route('/playlists', methods=['POST'])
 def playlists_submit():
     """Submit a new playlist."""
     print(request.form.to_dict())
+    return redirect(url_for('playlists_index'))
+
+#submit route
+@app.route('/playlists', methods=['POST'])
+def playlists_submit():
+    """Submit a new playlist."""
+    playlist = {
+        'title': request.form.get('title'),
+        'description': request.form.get('description')
+    }
+    playlists.insert_one(playlist)
     return redirect(url_for('playlists_index'))
 
 if __name__ == '__main__':
