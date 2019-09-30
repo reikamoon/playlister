@@ -47,5 +47,11 @@ def playlists_submit():
     playlists.insert_one(playlist)
     return redirect(url_for('playlists_index'))
 
+#playlists id route
+@app.route('/playlists/<playlist_id>')
+def playlists_show(playlist_id):
+    """Show a single playlist."""
+    return f'My ID is {playlist_id}'
+
 if __name__ == '__main__':
     app.run(debug=True)
