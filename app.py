@@ -27,7 +27,7 @@ def playlists_index():
 @app.route('/playlists/new')
 def playlists_new():
     """Create a new playlist."""
-    return render_template('playlists_new.html')
+    return render_template('playlists_new.html', playlist={}, title='New Playlist')
 
 #Post Route
 @app.route('/playlists', methods=['POST'])
@@ -60,7 +60,7 @@ def playlists_show(playlist_id):
 def playlists_edit(playlist_id):
     """Show the edit form for a playlist."""
     playlist = playlists.find_one({'_id': ObjectId(playlist_id)})
-    return render_template('playlists_edit.html', playlist=playlist)
+    return render_template('playlists_edit.html', playlist=playlist, title='Edit Playlist')
 
 #update route
 @app.route('/playlists/<playlist_id>', methods=['POST'])
