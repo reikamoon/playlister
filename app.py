@@ -46,7 +46,7 @@ def playlists_submit():
         'videos': request.form.get('videos').split()
     }
     playlists.insert_one(playlist)
-    return redirect(url_for('playlists_index'))
+    return redirect(url_for('playlists_show', playlist_id=playlist_id))
 
 #playlists id route
 @app.route('/playlists/<playlist_id>')
