@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from bson.objectid import ObjectId
 from pymongo import MongoClient
 from datetime import datetime
+import os
 
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
 client = MongoClient(host=host)
@@ -32,7 +33,21 @@ def playlists_new():
     """Create a new playlist."""
     return render_template('playlists_new.html', playlist={}, title='New Playlist')
 
-#Post Route
+# #Post Route
+# @app.route('/playlists', methods=['POST'])
+# def playlists_submit():
+#     """Submit a new playlist."""
+#     playlist = {
+#         'title': request.form.get('title'),
+#         'description': request.form.get('description'),
+#         'videos': request.form.get('videos').split(),
+#         'created_at': datetime.now()
+#     }
+#     print(playlist)
+#     playlist_id = playlists.insert_one(playlist).inserted_id
+#     return redirect(url_for('playlists_show', playlist_id=playlist_id))
+
+#submit route
 @app.route('/playlists', methods=['POST'])
 def playlists_submit():
     """Submit a new playlist."""
@@ -44,19 +59,7 @@ def playlists_submit():
     }
     print(playlist)
     playlist_id = playlists.insert_one(playlist).inserted_id
-    return redirect(url_for('playlists_show', playlist_id=playlist_id))
-
-#submit route
-@app.route('/playlists', methods=['POST'])
-def playlists_submit():
-    """Submit a new playlist."""
-    playlist = {
-        'title': request.form.get('title'),
-        'description': request.form.get('description'),
-        'videos': request.form.get('videos').split()
-    }
-    playlists.insert_one(playlist)
-    return redirect(url_for('playlists_show', playlist_id=playlist_id))
+    return redirect(url_for('playlists_show', playlist_id = playlist_id))
 
 #playlists id route
 @app.route('/playlists/<playlist_id>')
@@ -64,7 +67,7 @@ def playlists_show(playlist_id):
     """Show a single playlist."""
     playlist = playlists.find_one({'_id': ObjectId(playlist_id)})
     playlist_comments = comments.find({'playlist_id': ObjectId(playlist_id)})
-    return render_template('playlists_show.html', playlist=playlist, comments=playlist_comments
+    return render_template('playlists_show.html', playlist=playlist, comments=playlist_comments)
 
 # edit playlists route
 @app.route('/playlists/<playlist_id>/edit')
