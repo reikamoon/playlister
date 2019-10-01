@@ -2,8 +2,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class='row'>
+    <div class='col-sm-6 col-sm-offset-3'>
+        <form method='POST' action='/playlists/{{playlist._id}}'>
+            <input type='hidden' name='_method' value='PUT'/>
+            {% include 'partials/playlists_form.html' %}
 <form method='POST' action='/playlists/{{playlist._id}}'>
-    {% include 'partials/playlists_form.html' %}
     <fieldset>
         <legend>Edit Playlist</legend>
         <!-- TITLE -->
@@ -27,8 +31,8 @@
     </fieldset>
 
     <!-- BUTTON -->
-    <p>
-        <button type='submit'>Save Playlist</button>
-    </p>
+              <div class='form-group'>
+                  <button class='btn btn-primary' type='submit'>Save Playlist</button>
+              </div>
 </form>
 {% endblock %}
