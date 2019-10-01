@@ -1,5 +1,9 @@
 <!-- templates/playlists_show.html -->
 
+<form action='/playlists/comments' method='post'>
+   <input type='hidden' value='{{ playlist._id }}' name='playlist_id'/>
+    <fieldset>
+
 <a href='/'>Back to Home</a>
 <div class='row'>
     <div class='col-sm-6 col-sm-offset-3'>
