@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from bson.objectid import ObjectId
 from pymongo import MongoClient
+from datetime import datetime
 
 host = os.environ.get('MONGODB_URI', 'mongodb://localhost:27017/Playlister')
 client = MongoClient(host=host)
@@ -35,8 +36,15 @@ def playlists_new():
 @app.route('/playlists', methods=['POST'])
 def playlists_submit():
     """Submit a new playlist."""
-    print(request.form.to_dict())
-    return redirect(url_for('playlists_index'))
+    playlist = {
+        'title': request.form.get('title'),
+        'description': request.form.get('description'),
+        'videos': request.form.get('videos').split(),
+        'created_at': datetime.now()
+    }
+    print(playlist)
+    playlist_id = playlists.insert_one(playlist).inserted_id
+    return redirect(url_for('playlists_show', playlist_id=playlist_id))
 
 #submit route
 @app.route('/playlists', methods=['POST'])
