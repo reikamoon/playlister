@@ -84,5 +84,11 @@ def playlists_delete(playlist_id):
     playlists.delete_one({'_id': ObjectId(playlist_id)})
     return redirect(url_for('playlists_index'))
 
+#Comments Route
+@app.route('/playlists/comments', methods=['POST'])
+def comments_new():
+    """Submit a new comment."""
+    return 'playlists comment'
+
 if __name__ == '__main__':
-    app.run(debug=True)
+  app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
