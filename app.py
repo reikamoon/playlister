@@ -54,7 +54,7 @@ def playlists_submit():
         'title': request.form.get('title'),
         'description': request.form.get('description'),
         'videos': request.form.get('videos').split(),
-        'created_at': datetime.now()
+        #'created_at': datetime.now()
     }
     print(playlist)
     print(request.form.to_dict())
