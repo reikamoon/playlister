@@ -13,17 +13,16 @@ comments = db.comments
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    """Return homepage."""
-    return render_template('home.html', msg='Playlister')
-# OUR MOCK ARRAY OF PROJECTS
+# @app.route('/')
+# def index():
+#     """Return homepage."""
+#     return render_template('home.html', msg='Playlister')
 # playlists = [
 #     { 'title': 'Cat Videos', 'description': 'Cats acting weird' },
 #     { 'title': '80\'s Music', 'description': 'Don\'t stop believing!' }
 # ]
 
-@app.route('/playlists')
+@app.route('/')
 def playlists_index():
     """Show all playlists."""
     return render_template('playlists_index.html', playlists=playlists.find())
@@ -58,6 +57,7 @@ def playlists_submit():
         'created_at': datetime.now()
     }
     print(playlist)
+    print(request.form.to_dict())
     playlist_id = playlists.insert_one(playlist).inserted_id
     return redirect(url_for('playlists_show', playlist_id=playlist_id))
 
