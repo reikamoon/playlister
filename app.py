@@ -16,7 +16,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     """Return homepage."""
-    return render_template('home.html', msg='Flask is Cool!!')
+    return render_template('home.html', msg='Playlister')
 # OUR MOCK ARRAY OF PROJECTS
 # playlists = [
 #     { 'title': 'Cat Videos', 'description': 'Cats acting weird' },
@@ -59,7 +59,7 @@ def playlists_submit():
     }
     print(playlist)
     playlist_id = playlists.insert_one(playlist).inserted_id
-    return redirect(url_for('playlists_show', playlist_id = playlist_id))
+    return redirect(url_for('playlists_show', playlist_id=playlist_id))
 
 #playlists id route
 @app.route('/playlists/<playlist_id>')
